@@ -50,29 +50,17 @@ def bird_heuristic(pair1, pair2):
     c2 = levenshtein_similarity(prefix1, prefix2)
     c3_1 = levenshtein_similarity(firstname1, firstname2)
     c3_2 = levenshtein_similarity(lastname1, lastname2)
-    # C4-C7: prefix contains initials + lastname/firstname
+
+    # C4-C7: check initials + lastname/firstname containment
+    c4 = c5 = c6 = c7 = False
     if firstname1 and lastname1:
-        if prefix2.startswith(firstname1[0]) and lastname1 in prefix2:
-            c4 = True
-        else:
-            c4 = False
-        if prefix2.startswith(lastname1[0]) and firstname1 in prefix2:
-            c5 = True
-        else:
-            c5 = False
-    else:
-        c4 = c5 = False
+        c4 = (firstname1[0] in prefix2) and (lastname1 in prefix2)
+    if lastname1:
+        c5 = (lastname1[0] in prefix2) and (firstname1 in prefix2)
     if firstname2 and lastname2:
-        if prefix1.startswith(firstname2[0]) and lastname2 in prefix1:
-            c6 = True
-        else:
-            c6 = False
-        if prefix1.startswith(lastname2[0]) and firstname2 in prefix1:
-            c7 = True
-        else:
-            c7 = False
-    else:
-        c6 = c7 = False
+        c6 = (firstname2[0] in prefix1) and (lastname2 in prefix1)
+    if lastname2:
+        c7 = (lastname2[0] in prefix1) and (firstname2 in prefix1)
 
     return {
         "name_1" : name1,
