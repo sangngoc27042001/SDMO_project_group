@@ -2,3 +2,4 @@ pandas
 joblib
 tqdm
 pydriller
+sentence-transformers
