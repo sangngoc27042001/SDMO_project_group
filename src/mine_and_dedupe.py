@@ -8,6 +8,13 @@ from tqdm import tqdm
 import hashlib
 import os
 import pandas as pd
+import random
+
+def shuffle_list(items, seed=0):
+    items_copy = items[:]  # avoid modifying original list
+    rng = random.Random(seed)  # create a local RNG with fixed seed
+    rng.shuffle(items_copy)
+    return items_copy
 
 def hash_repo_url(repo_url, max_commits=None):
     key_str = f"{repo_url}::{max_commits}"
@@ -55,7 +62,7 @@ def mine_commits(repo_url):
 def handle_two_pairs(p1, p2):
     return bird_heuristic(p1, p2)
 
-def apply_bird(repo_url, pairs):
+def apply_bird(repo_url, pairs, limit_no_pair=None):
     """
     Apply Bird heuristic to all pairs and return potential duplicates.
     """
@@ -63,6 +70,8 @@ def apply_bird(repo_url, pairs):
     repo_hash = hash_repo_url(repo_url)
     run_dir = os.path.join("runs", repo_hash)
     pairs_path = os.path.join(run_dir, "devs_similarity.csv")
+    if limit_no_pair is not None:
+        pairs_path += "_limit="+str(limit_no_pair)+".csv"
 
     if os.path.exists(pairs_path):
         try:
@@ -74,6 +83,10 @@ def apply_bird(repo_url, pairs):
     # Apply Bird heuristic
 
     combinations_of_2_pairs = list(combinations(pairs, 2))
+    if limit_no_pair is not None:
+        combinations_of_2_pairs = shuffle_list(combinations_of_2_pairs, seed=42)
+        combinations_of_2_pairs = combinations_of_2_pairs[:limit_no_pair]
+
     bird_results = Parallel(n_jobs=-1)(
         delayed(handle_two_pairs)(p1, p2) for p1, p2 in tqdm(combinations_of_2_pairs)
     )
