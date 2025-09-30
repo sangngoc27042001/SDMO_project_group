@@ -4,7 +4,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Run Bird heuristic duplicate detection on a repository")
-    parser.add_argument("--repo_url", default="https://github.com/keras-team/keras",
+    parser.add_argument("--repo_url", default="https://github.com/twbs/bootstrap",
                         help="Repository URL to analyze (default: eShopOnContainers)")
     parser.add_argument("--threshold", type=float, default=1,
                         help="Threshold for duplicate detection (default: 0.7)")

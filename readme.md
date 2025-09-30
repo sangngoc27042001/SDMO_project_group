@@ -21,6 +21,13 @@ Arguments:
 - `--repo_url`: Repository URL to analyze (default: `https://github.com/dotnet-architecture/eShopOnContainers`)
 - `--threshold`: Threshold for duplicate detection (default: `0.7`)
 
+## How to run the proposed method
+You can run our proposed method directly with:
+
+```bash
+python3 -m src.proposed_method
+```
+
 ## How to test
 Run the unit tests with:
 ```bash
