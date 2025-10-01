@@ -3,3 +3,4 @@ joblib
 tqdm
 pydriller
 sentence-transformers
+Levenshtein

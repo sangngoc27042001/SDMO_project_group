@@ -1,34 +1,97 @@
-# Developer Identity Deduplication
+# SDMO Project Group
 
-## What is this repo about?
-This project provides tools to detect and filter duplicate developer identities in Git repositories.  
-It uses heuristics based on names and emails (Bird heuristic) to identify potential duplicates among commit authors.
+This project provides tools for detecting duplicate developer identities in Git repositories using the **Bird heuristic** and an extended **Proposed Method**.
 
-## How to set up
-Install dependencies:
+---
+
+## Installation
+
+We use [uv](https://github.com/astral-sh/uv) for environment and dependency management.
+
 ```bash
-python3 -m pip install -r requirements.txt
+# Create a virtual environment
+uv venv
+
+# Install dependencies
+uv pip install -r requirements.txt
 ```
 
-## How to run
-You can run the main script directly from the terminal:
+---
+
+## Usage
+
+### 1. Bird Heuristic
+
+Run the Bird heuristic duplicate detection:
 
 ```bash
-python3 -m src.main --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7
+uv run python3 -m src.main --repo_url <URL> --threshold <float> [--limit_no_pair <int>]
 ```
 
-Arguments:
-- `--repo_url`: Repository URL to analyze (default: `https://github.com/dotnet-architecture/eShopOnContainers`)
-- `--threshold`: Threshold for duplicate detection (default: `0.7`)
+#### Parameters
+- `--repo_url` (str): GitHub repository URL to analyze.  
+  *Default:* `https://github.com/twbs/bootstrap`
+- `--threshold` (float): Similarity threshold for duplicate detection.  
+  *Default:* `1.0` (recommended: `0.7`)
+- `--limit_no_pair` (int, optional): Limit the number of pairs to process.  
+  *Default:* `None` (process all pairs)
 
-## How to run the proposed method
-You can run our proposed method directly with:
-
+#### Example
 ```bash
-python3 -m src.proposed_method
+uv run python3 -m src.main --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7
 ```
 
-## How to test
-Run the unit tests with:
+---
+
+### 2. Proposed Method
+
+Run the extended duplicate detection method:
+
 ```bash
-python3 -m unittest discover -s src/unit_test -p "test_*.py"
+uv run python3 -m src.proposed_method --repo_url <URL> --threshold <float> --threshold_2 <float> [--limit_no_pair <int>]
+```
+
+#### Parameters
+- `--repo_url` (str): GitHub repository URL to analyze.  
+  *Default:* `https://github.com/twbs/bootstrap`
+- `--threshold` (float): First-level Bird heuristic similarity threshold.  
+  *Default:* `1.0` (recommended: `0.7`)
+- `--threshold_2` (float): Second-level vector similarity threshold.  
+  *Default:* `0.6`
+- `--limit_no_pair` (int, optional): Limit the number of pairs to process.  
+  *Default:* `None`
+
+#### Example
+```bash
+uv run python3 -m src.proposed_method --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7 --threshold_2 0.6
+```
+
+---
+
+## Output
+
+Both methods generate CSV files under the `runs/<repo_hash>/` directory:
+- `devs_similarity.csv` (Bird heuristic results)
+- `devs_similarity_proposed_method.csv` (Proposed method results)
+- Filtered results with thresholds applied are also saved with filenames like:
+  - `devs_similarity_t=0.7.csv`
+  - `devs_similarity_proposed_method_t=0.6.csv`
+
+---
+
+## Testing
+
+Unit tests are available in the `src/unit_test/` directory.
+
+Run all tests with:
+
+```bash
+uv run python3 -m unittest discover src/unit_test
+```
+
+---
+
+## Summary of Methods
+
+- **Bird Heuristic**: Uses name and email similarity with heuristics (Levenshtein ratio, prefix checks, initials).
+- **Proposed Method**: Extends Bird heuristic with additional vector-based similarity checks across multiple dimensions.
