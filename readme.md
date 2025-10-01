@@ -25,7 +25,7 @@ uv pip install -r requirements.txt
 Run the Bird heuristic duplicate detection:
 
 ```bash
-uv run python3 -m src.main --repo_url <URL> --threshold <float> [--limit_no_pair <int>]
+uv run python -m src.main --repo_url <URL> --threshold <float> [--limit_no_pair <int>]
 ```
 
 #### Parameters
@@ -38,7 +38,7 @@ uv run python3 -m src.main --repo_url <URL> --threshold <float> [--limit_no_pair
 
 #### Example
 ```bash
-uv run python3 -m src.main --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7
+uv run python -m src.main --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7
 ```
 
 ---
@@ -48,7 +48,7 @@ uv run python3 -m src.main --repo_url https://github.com/dotnet-architecture/eSh
 Run the extended duplicate detection method:
 
 ```bash
-uv run python3 -m src.proposed_method --repo_url <URL> --threshold <float> --threshold_2 <float> [--limit_no_pair <int>]
+uv run python -m src.proposed_method --repo_url <URL> --threshold <float> --threshold_2 <float> [--limit_no_pair <int>]
 ```
 
 #### Parameters
@@ -63,7 +63,7 @@ uv run python3 -m src.proposed_method --repo_url <URL> --threshold <float> --thr
 
 #### Example
 ```bash
-uv run python3 -m src.proposed_method --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7 --threshold_2 0.6
+uv run python -m src.proposed_method --repo_url https://github.com/dotnet-architecture/eShopOnContainers --threshold 0.7 --threshold_2 0.6
 ```
 
 ---
@@ -86,7 +86,7 @@ Unit tests are available in the `src/unit_test/` directory.
 Run all tests with:
 
 ```bash
-uv run python3 -m unittest discover src/unit_test
+uv run python -m unittest discover src/unit_test
 ```
 
 ---
