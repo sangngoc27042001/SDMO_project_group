@@ -83,11 +83,13 @@ Both methods generate CSV files under the `runs/<repo_hash>/` directory:
 
 Unit tests are available in the `src/unit_test/` directory.
 
-Run all tests with:
+Run all tests and generate a coverage report in XML format with:
 
 ```bash
-uv run python -m unittest discover src/unit_test
+uv run pytest --cov=src --cov-report=xml
 ```
+
+- The coverage report will be saved as `coverage.xml` in the project root.
 
 ---
 

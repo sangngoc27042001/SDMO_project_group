@@ -12,13 +12,13 @@ import random
 
 def shuffle_list(items, seed=0):
     items_copy = items[:]  # avoid modifying original list
-    rng = random.Random(seed)  # create a local RNG with fixed seed
+    rng = random.SystemRandom(seed)  # create a local RNG with fixed seed
     rng.shuffle(items_copy)
     return items_copy
 
 def hash_repo_url(repo_url, max_commits=None):
     key_str = f"{repo_url}::{max_commits}"
-    repo_hash = hashlib.sha1(key_str.encode("utf-8")).hexdigest()[:12]
+    repo_hash = hashlib.sha3_512(key_str.encode("utf-8")).hexdigest()[:12]
     return repo_hash
 
 from pydriller import Repository
@@ -37,8 +37,8 @@ def mine_commits(repo_url):
         try:
             df = pd.read_csv(pairs_path)
             return df.to_dict(orient='records')
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     devs = set()
     print("Beginning to read the commits ...")
@@ -77,8 +77,8 @@ def apply_bird(repo_url, pairs, limit_no_pair=None):
         try:
             df = pd.read_csv(pairs_path)
             return df.to_dict(orient='records')
-        except:
-            pass
+        except Exception as e:
+            print(e)
     
     # Apply Bird heuristic
 

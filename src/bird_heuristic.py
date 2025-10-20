@@ -48,8 +48,8 @@ def bird_heuristic(pair1, pair2):
     name2, email2 = pair2["name"], pair2["email"]
 
     # Pre-process both developers (reuse your process function)
-    name_a, first_a, last_a, i_first_a, i_last_a, email_a, prefix_a = process((name1, email1))
-    name_b, first_b, last_b, i_first_b, i_last_b, email_b, prefix_b = process((name2, email2))
+    name_a, first_a, last_a, i_first_a, i_last_a, _, prefix_a = process((name1, email1))
+    name_b, first_b, last_b, i_first_b, i_last_b, _, prefix_b = process((name2, email2))
 
     # Bird heuristic conditions
     c1 = calculate_similarity(name_a, name_b)
@@ -92,5 +92,5 @@ if __name__ == "__main__":
 
     for i in range(len(pairs)):
         for j in range(i+1, len(pairs)):
-            if bird_heuristic(pairs[i], pairs[j], threshold=0.8):
+            if bird_heuristic(pairs[i], pairs[j]):
                 print(f"Duplicate detected: {pairs[i]} <-> {pairs[j]}")

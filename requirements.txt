@@ -4,3 +4,5 @@ tqdm
 pydriller
 sentence-transformers
 Levenshtein
+pytest
+pytest-cov

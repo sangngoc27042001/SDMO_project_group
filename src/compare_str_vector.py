@@ -15,9 +15,3 @@ def compare_texts(text1: str, text2: str):
     emb1 = get_embedding(text1)
     emb2 = get_embedding(text2)
     return cosine_similarity(emb1, emb2)
-
-
-# Example
-# e1 = get_embedding("I love programming in Python")
-# e2 = get_embedding("Python coding is fun")
-# print("Cosine similarity:", cosine_similarity(e1, e2))

@@ -1,0 +1,6 @@
+projectKey=SDMO-Group-30
+serverUrl=http://10.123.112.188:9000
+serverVersion=25.9.0.112764
+dashboardUrl=http://10.123.112.188:9000/dashboard?id=SDMO-Group-30
+ceTaskId=bbc38b01-9f78-4d1a-95e7-ab16aa38df75
+ceTaskUrl=http://10.123.112.188:9000/api/ce/task?id=bbc38b01-9f78-4d1a-95e7-ab16aa38df75

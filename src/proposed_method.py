@@ -44,8 +44,8 @@ def apply_proposed_method(repo_url, pairs, limit_no_pair=None):
         try:
             df = pd.read_csv(pairs_path)
             return df.to_dict(orient='records')
-        except:
-            pass
+        except Exception as e:
+            print(e)
     
     # Apply Bird heuristic
     pairs = [
